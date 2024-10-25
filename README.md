@@ -132,5 +132,5 @@ Contact
 
 For any questions, issues, or suggestions, please reach out to:
 
-    Email: adnaanafa@example.com
+    Email: adnaanafa@gmail.com
     GitHub: Adnaan5sal
