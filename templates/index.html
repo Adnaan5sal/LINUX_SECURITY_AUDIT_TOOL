@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Audit Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Linux Audit Results</h1>
+        <table>
+            <tr>
+                <th class="parameter-column">Parameter</th>
+                <th class="status-column">Status</th>
+            </tr>
+            {% for line in output.split('\n') %}
+            <tr>
+                <td>
+                    {{ line.split(':')[0] }} <!-- Keep the parameter name in black -->
+                </td>
+                <td>
+                    {% set status = line.split(':', 1)[1].strip() %}
+                    {% if 'OS Details' in line %}
+                        <span class="os-details">{{ status|safe }}</span> <!-- Apply yellow to the status -->
+                    {% elif 'Yes' in status %}
+                        <span class="status-yes">{{ status }}</span>
+                    {% elif 'No' in status %}
+                        <span class="status-no">{{ status }}</span>
+                    {% else %}
+                        {{ status }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
