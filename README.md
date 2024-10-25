@@ -132,5 +132,5 @@ Contact
 
 For any questions, issues, or suggestions, please reach out to:
 
-    Email: your.email@example.com
-    GitHub: YourGitHubUsername
+    Email: adnaanafa@example.com
+    GitHub: Adnaan5sal
