@@ -121,7 +121,7 @@ def audit():
     #   output.append("4. Desktop Security Risk Assessment (Firewall): Unable to determine firewall status (command failed)")
 
  # Example: Firewall Status
-    firewall_status, error = run_command("sudo ufw status")
+    firewall_status, error = run_command("systemctl is-active ufw")
     if firewall_status:
         if "inactive" in firewall_status.lower():
             output.append("4. UFW Status: No, the firewall UFW is inactive")
@@ -232,7 +232,7 @@ def audit():
         output.append("10. SSH Using Protocol 2: No, upadte SSH protocols to protocol2")
 
     # 11. Limit Unsuccessful Login Attempts
-    pam_tally_status = run_command("grep 'LOGIN_RETRIES' /etc/login.defs")
+    pam_tally_status = run_command("grep -E '^[^#]*LOGIN_RETRIES' /etc/login.defs")
     if pam_tally_status:
         output.append("11. Unsuccessful Login Attempts Limited: Yes, Limiting unsuccessful login attempts are enabled ")
     else:
@@ -414,14 +414,14 @@ def audit():
     else:
       output.append("25. Single-User Mode Requires Authentication: Yes, it is set")
 
-   # 30. SSH X11 Forwarding Disabled
+   # 26. SSH X11 Forwarding Disabled
     ssh_x11_forwarding_status, error = run_command("grep -E '^[^#]*X11Forwarding no' /etc/ssh/sshd_config")
 
    # Check if the command returns any output indicating X11 forwarding is disabled
     if ssh_x11_forwarding_status.strip():
-      output.append("27. SSH X11 Forwarding Disabled: Yes, it is disabled")
+      output.append("26. SSH X11 Forwarding Disabled: Yes, it is disabled")
     else:
-      output.append("27. SSH X11 Forwarding Disabled: No, it is enabled")
+      output.append("26. SSH X11 Forwarding Disabled: No, it is enabled")
 
 
     return render_template('index.html', output="\n".join(output))
